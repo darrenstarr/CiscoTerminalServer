@@ -1,0 +1,128 @@
+﻿@namespace TerminalServer.CiscoSession.Parsers
+@classname CiscoShowIpRoute
+@using System.Net;
+
+ShowIPRoute
+ = CLICommand Codes WS LastResort Routes*
+
+Routes
+ = Route
+ / SubnettedNetwork
+
+CLICommand
+ = 'show ip route'
+ 
+Codes
+ = WS 'Codes:' ToEndOfLine+
+
+LastResort
+ = 'Gateway of last resort is' WS IPAddress WS 'to network' WS IPAddress WS
+ / 'Gateway of last resort is not set' WS
+
+Route
+ = Code Prefix RouteMetric Via? Uptime? OutgoingInterface? WS
+ / NextHopOverride WS Route NHO RouteMetric Via? Uptime? OutgoingInterface? WS
+
+
+SubnettedNetwork
+ = Prefix 'is variably subnetted,' WS Number WS 'subnets,' WS Number WS 'masks' WS Routes+
+ / Prefix 'is subnetted,' WS Number WS 'subnets' WS Routes+
+ 
+Code
+ = ProtocolCode WS? CandidateDefault? ProtocolModifier? ReplicatedRoute? WS?
+
+NextHopOverride
+ = '%'
+
+NHO
+ = '[NHO]'
+
+ProtocolCode
+ = 'L'
+ / 'C'
+ / 'S'
+ / 'R'
+ / 'M'
+ / 'B'
+ / 'D'
+ / 'O'
+ / 'i'
+ / 'o'
+ / 'P'
+ / 'H'
+ / 'l'
+ / 'U'
+ 
+CandidateDefault
+ = '*'
+ 
+ProtocolModifier
+ = 'EX'
+ / 'IA'
+ / 'N1'
+ / 'N2'
+ / 'E1'
+ / 'E2'
+ / 'su'
+ / 'L1'
+ / 'L2'
+ / 'ia'
+
+ReplicatedRoute
+ = '+'
+ 
+Prefix
+ = IPAddress '/' Number WS? 
+ / IPAddress WS?
+
+RouteMetric
+ = '[' Number '/' Number ']' WS?
+ / 'is directly connected'
+ 
+Via
+ = 'via' WS IPAddress WS?
+
+Uptime
+ = ',' WS? ([0-9]+[ywmdhms])+
+ / ',' WS? Number ':' Number ':' Number
+
+OutgoingInterface
+ = ',' WS* InterfaceType InterfaceNumber
+
+InterfaceType
+  = 'Vlan'
+  / 'Ethernet'
+  / 'FastEthernet'
+  / 'GigabitEthernet'
+  / 'Te'
+  / 'Port-channel'
+  / 'Loopback'
+  / 'Tunnel'
+  / 'Async'
+  / 'NVI'
+  / 'ucse'
+  / 'Embedded-Service-Engine'
+
+InterfaceNumber
+ 	= a:Number '/' b:Number '/' c:Number '/' d:Number
+ 	/ a:Number '/' b:Number '/' c:Number
+ 	/ a:Number '/' b:Number
+ 	/ a:Number
+
+IPAddress
+ = Octet '.' Octet '.' Octet '.' Octet
+
+Octet
+ = Number
+
+
+ToEndOfLine
+ = [^\r\n]+[\r]?[\n]
+
+WS
+= [ \t\r\n] +
+
+Number
+= i:[0-9]+ { string.Concat(i) }
+ 
+ 

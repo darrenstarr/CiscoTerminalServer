@@ -19,7 +19,7 @@ My near-term todo includes
  - show int status
  - show interface
  - show ip interface
- - show ip route
+ - show ip route (parser coded, a little tested, will implement model next)
  - show ipv6 interface brief
  - show ipv6 interface
  - show ipv6 route
@@ -59,3 +59,6 @@ I think I can implement policy based infrastructure without the need for new equ
 How will I make money from this?
 
 I don't intend to make money from this. At least not directly. I'm a Cisco instructor teaching in 6 different tracks. I am almost 100% focused on becoming a Microsoft guy now. The reason is, I don't think I can be good at networking if I can't integrate it properly with the rest of the infratructure. So, I'm automating everything and using it as a major learning experience. 
+
+Notes :
+I'm making extensive use of Renci.SshNet (also known as SSH.net) for communication. I'm also using Pegasus PEG parser generator for nearly all parsing. I'm doing my best to code readable recursive decent parsers for all input. I'm not overly excited about the lack of reuse of code as I'm not aware of how to implement an "include" so things like parsing IP addresses, prefixes, etc... don't end up spread out. I think I'll have to write some sort of templating code to make it easier to centrally manage highly repetitive code. For now, I'll do it the hardware and try to be consistant.

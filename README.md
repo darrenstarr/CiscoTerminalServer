@@ -19,7 +19,7 @@ My near-term todo includes
  - show int status
  - show interface
  - show ip interface
- - show ip route
+ - show ip route (parser coded, a little tested, will implement model next)
  - show ipv6 interface brief
  - show ipv6 interface
  - show ipv6 route

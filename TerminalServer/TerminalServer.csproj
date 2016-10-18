@@ -62,6 +62,8 @@
     <Compile Include="CiscoSession\Model\ShowInterfaceBriefItem.cs" />
     <Compile Include="CiscoSession\Model\ShowInventoryItem.cs" />
     <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowCDPEntry.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowVLANBrief.peg" />
+    <Compile Include="CiscoSession\Model\ShowVLANBriefItem.cs" />
     <Compile Include="CiscoSession\ShowResultEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

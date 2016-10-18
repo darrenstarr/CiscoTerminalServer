@@ -175,6 +175,23 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
+        public List<ShowVLANBriefItem> GetVLANS()
+        {
+            var text = ExecuteSingleCommand("show vlan brief");
+            try
+            {
+                var parser = new Parsers.CiscoShowVLANBrief();
+                return parser.Parse(text);
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
+        }
+
         public string GetHostname()
         {
             var text = ExecuteSingleCommand("");

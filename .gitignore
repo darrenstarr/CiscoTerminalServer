@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages/Pegasus.3.1.2
+/TerminalServer/bin/Debug
+/TerminalServer/obj/Debug
+*.peg.cs
+/SSH.NET/

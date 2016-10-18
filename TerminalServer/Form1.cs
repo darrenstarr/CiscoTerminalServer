@@ -46,6 +46,7 @@ namespace TerminalServer
             }
 
             var cdpNeighbors = controller.GetCDPNeighbors();
+            var vlans = controller.GetVLANS();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)

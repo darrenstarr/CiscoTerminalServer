@@ -12,6 +12,7 @@ I have included pretty complete parsers for :
  - show inventory
  - show cdp entry *
  - show ip interface brief
+ - show vlan brief
  
 My near-term todo includes
  - show vrf

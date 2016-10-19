@@ -3,36 +3,35 @@
 @using System.Net;
 
 ShowIPRoute
- = CLICommand Codes WS LastResort Routes*
-
-Routes
- = Route
- / SubnettedNetwork
-
+ = CLICommand Codes WS LastResort Route* CiscoPrompt EOF
+  
 CLICommand
  = 'show ip route'
  
 Codes
  = WS 'Codes:' ToEndOfLine+
 
+// Gateway of last resort is 10.100.0.1 to network 0.0.0.0 
 LastResort
  = 'Gateway of last resort is' WS IPAddress WS 'to network' WS IPAddress WS
  / 'Gateway of last resort is not set' WS
-
+ 
 Route
- = Code Prefix RouteMetric Via? Uptime? OutgoingInterface? WS
- / NextHopOverride WS Route NHO RouteMetric Via? Uptime? OutgoingInterface? WS
-
-
+ = Code Prefix NextHop*
+ / SubnettedNetwork
+ 
+NextHop
+ = NHO? RouteMetric Via? Uptime? OutgoingInterface? WS
+ 
 SubnettedNetwork
- = Prefix 'is variably subnetted,' WS Number WS 'subnets,' WS Number WS 'masks' WS Routes+
- / Prefix 'is subnetted,' WS Number WS 'subnets' WS Routes+
+ = Prefix 'is variably subnetted,' WS Number WS 'subnets,' WS Number WS 'masks' WS Route+
+ / Prefix 'is subnetted,' WS Number WS 'subnets' WS Route+
  
 Code
- = ProtocolCode WS? CandidateDefault? ProtocolModifier? ReplicatedRoute? WS?
-
+ = NextHopOverride? ProtocolCode WS? CandidateDefault? ProtocolModifier? ReplicatedRoute? WS?
+ 
 NextHopOverride
- = '%'
+ = '%' WS?
 
 NHO
  = '[NHO]'
@@ -74,22 +73,22 @@ ReplicatedRoute
 Prefix
  = IPAddress '/' Number WS? 
  / IPAddress WS?
-
+ 
 RouteMetric
  = '[' Number '/' Number ']' WS?
  / 'is directly connected'
  
 Via
  = 'via' WS IPAddress WS?
-
+ 
 Uptime
  = ',' WS? ([0-9]+[ywmdhms])+
  / ',' WS? Number ':' Number ':' Number
-
+ 
 OutgoingInterface
  = ',' WS* InterfaceType InterfaceNumber
-
-InterfaceType
+ 
+InterfaceType 
   = 'Vlan'
   / 'Ethernet'
   / 'FastEthernet'
@@ -111,18 +110,24 @@ InterfaceNumber
 
 IPAddress
  = Octet '.' Octet '.' Octet '.' Octet
-
+ 
 Octet
  = Number
-
-
+ 
 ToEndOfLine
  = [^\r\n]+[\r]?[\n]
 
 WS
-= [ \t\r\n] +
-
+ = [ \t\r\n]+
+ 
 Number
-= i:[0-9]+ { string.Concat(i) }
+ = i:[0-9]+ { string.Concat(i) }
+ 
+CiscoPrompt
+	    = [A-Za-z][A-Za-z0-9-_]*[#>]
+
+EOF 
+	= !.
+
  
  

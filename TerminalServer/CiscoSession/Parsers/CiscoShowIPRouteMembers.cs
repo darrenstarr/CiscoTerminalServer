@@ -40,6 +40,8 @@ namespace TerminalServer.CiscoSession.Parsers
             {
                 case "y":
                     return 31536000 * x;
+                case "w":
+                    return 86400 * 7 * x;
                 case "d":
                     return 86400 * x;
                 case "h":

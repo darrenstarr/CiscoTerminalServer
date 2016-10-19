@@ -20,9 +20,9 @@ namespace TerminalServer
         {
             hostname.Text = "Hostname : " + controller.GetHostname();
 
-            var interfaces = controller.GetInterfaces();
+            var ipInterfacesBrief = controller.GetIPInterfaceBrief();
             interfacesView.Items.Clear();
-            foreach(var item in interfaces)
+            foreach(var item in ipInterfacesBrief)
             {
                 var newItem = new ListViewItem(new string[]
                 {
@@ -48,42 +48,46 @@ namespace TerminalServer
             var cdpNeighbors = controller.GetCDPNeighbors();
             var routes = controller.GetIPRoute();
             RouteView.Items.Clear();
-            foreach(var item in routes.Routes)
+            if (routes != null)
             {
-                var newItem = new ListViewItem(new string[]
+                foreach (var item in routes.Routes)
                 {
-                    item.Code.Protocol.ToString(),
-                    item.Code.Suffix == CiscoSession.Model.ERoutingProtocol.Unspecified ? "" : item.Code.Suffix.ToString(),
-                    item.Code.Candidate ? "*" : "",
-                    item.Code.NextHopOverride ? "*" : "",
-                    item.Code.Replicated ? "*" : "",
-                    item.Prefix.ToString(),
-                    "",
-                    "",
-                    "",
-                    "",
-                    ""
-                });
-
-                foreach(var nextHop in item.NextHops)
-                {
-                    if(newItem.SubItems[6].Text != "")
+                    var newItem = new ListViewItem(new string[]
                     {
-                        for (var i = 6; i < newItem.SubItems.Count; i++)
-                            newItem.SubItems[i].Text += "\n";
-                    }
-                    newItem.SubItems[6].Text += nextHop.RouteMetric.AdministrativeDistance;
-                    newItem.SubItems[7].Text += nextHop.RouteMetric.Metric;
-                    newItem.SubItems[8].Text += nextHop.Via == System.Net.IPAddress.Any ? "Directly connected" : nextHop.Via.ToString();
-                    if(nextHop.Uptime.Ticks > 0)
-                        newItem.SubItems[9].Text += nextHop.Uptime.ToString();
-                    newItem.SubItems[10].Text += nextHop.OutgoingInterface == null ? "" : nextHop.OutgoingInterface.ToString();
-                }
+                        item.Code.Protocol.ToString(),
+                        item.Code.Suffix == CiscoSession.Model.ERoutingProtocol.Unspecified ? "" : item.Code.Suffix.ToString(),
+                        item.Code.Candidate ? "*" : "",
+                        item.Code.NextHopOverride ? "*" : "",
+                        item.Code.Replicated ? "*" : "",
+                        item.Prefix.ToString(),
+                        "",
+                        "",
+                        "",
+                        "",
+                        ""
+                    });
 
-                RouteView.Items.Add(newItem);
+                    foreach (var nextHop in item.NextHops)
+                    {
+                        if (newItem.SubItems[6].Text != "")
+                        {
+                            for (var i = 6; i < newItem.SubItems.Count; i++)
+                                newItem.SubItems[i].Text += "\n";
+                        }
+                        newItem.SubItems[6].Text += nextHop.RouteMetric.AdministrativeDistance;
+                        newItem.SubItems[7].Text += nextHop.RouteMetric.Metric;
+                        newItem.SubItems[8].Text += nextHop.Via == System.Net.IPAddress.Any ? "Directly connected" : nextHop.Via.ToString();
+                        if (nextHop.Uptime.Ticks > 0)
+                            newItem.SubItems[9].Text += nextHop.Uptime.ToString();
+                        newItem.SubItems[10].Text += nextHop.OutgoingInterface == null ? "" : nextHop.OutgoingInterface.ToString();
+                    }
+
+                    RouteView.Items.Add(newItem);
+                }
             }
 
             var vlans = controller.GetVLANS();
+            var interfaces = controller.GetInterfaces();
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)

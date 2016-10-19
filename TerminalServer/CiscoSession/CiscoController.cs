@@ -62,7 +62,6 @@ namespace TerminalServer.CiscoSession
 
                 m_session.WriteLine(task.Command);
                 var result = m_session.WaitPrompt();
-                // var result = m_session.FromBookmark();
                 if (result != null)
                 {
                     foreach (var handler in task.ResultHandlers)
@@ -111,22 +110,8 @@ namespace TerminalServer.CiscoSession
 
         public void SetTerminalLengthZero()
         {
-            var newJob = AutomateGetToPrivExec();
-            newJob.AddTask(new DeviceJobTask
-            {
-                Name = "PrivExecReady",
-                Command = "terminal length 0",
-                ResultHandlers = new List<DeviceJobResultHandler>
-                {
-                    new DeviceJobResultHandler
-                    {
-                        Expression = _privExecPrompt,
-                        NextTask = "Done"
-                    }
-                }
-            });
-
-            RunJob(newJob);
+            ExecuteSingleCommand("terminal length 0");
+            ExecuteSingleCommand("terminal width 0");
 
             return;
         }
@@ -158,13 +143,29 @@ namespace TerminalServer.CiscoSession
             return text;
         }
 
-        public List<Model.ShowInterfaceBriefItem> GetInterfaces()
+        public List<ShowInterfaceBriefItem> GetIPInterfaceBrief()
         {
             var text = ExecuteSingleCommand("show ip interface brief");
             try
             {
                 var parser = new Parsers.CiscoShowIpInterfaceBrief();
                 return parser.Parse(text);
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
+        }
+
+        public List<ShowInterfaceBriefItem> GetInterfaces()
+        {
+            var text = ExecuteSingleCommand("show interfaces");
+            try
+            {
+                return null;
 
             }
             catch (Exception e)

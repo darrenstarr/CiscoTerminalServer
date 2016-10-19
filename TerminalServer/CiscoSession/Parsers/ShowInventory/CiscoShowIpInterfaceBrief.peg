@@ -43,6 +43,7 @@ InterfaceType
 	/ NVIInterface
 	/ UCSEInterface
 	/ EmbeddedServicesEngineInterface
+	/ NullInterface
 
 VLanInterface<EInterfaceType>
 	= 'Vlan' { EInterfaceType.VLan }
@@ -79,6 +80,10 @@ UCSEInterface<EInterfaceType>
 
 EmbeddedServicesEngineInterface<EInterfaceType>
 	= 'Embedded-Service-Engine' { EInterfaceType.EmbeddedServicesEngine }
+
+NullInterface<EInterfaceType>
+    = 'null' { EInterfaceType.Null }
+
 InterfaceNumber<CiscoInterfaceNumber>
 	= a:Number '/' b:Number '/' c:Number '/' d:Number { new CiscoInterfaceNumber { Chassis=a, LineCard=b, Module=c, Port=d } }
 	/ a:Number '/' b:Number '/' c:Number { new CiscoInterfaceNumber { LineCard=a, Module=b, Port=c } }

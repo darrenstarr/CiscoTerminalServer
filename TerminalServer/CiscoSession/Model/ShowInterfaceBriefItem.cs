@@ -20,7 +20,8 @@ namespace TerminalServer.CiscoSession.Model
         Async,
         NVI,
         UCSE,
-        EmbeddedServicesEngine
+        EmbeddedServicesEngine,
+        Null
     }
 
     public enum EInterfaceStatus

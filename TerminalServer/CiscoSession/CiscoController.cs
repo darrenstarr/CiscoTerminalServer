@@ -192,6 +192,23 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
+        public ShowIPRouteEntry GetIPRoute()
+        {
+            var text = ExecuteSingleCommand("show ip route");
+            try
+            {
+                var parser = new Parsers.CiscoShowIpRoute();
+                return parser.Parse(text);
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
+        }
+
         public string GetHostname()
         {
             var text = ExecuteSingleCommand("");

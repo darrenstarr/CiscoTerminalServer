@@ -46,6 +46,43 @@ namespace TerminalServer
             }
 
             var cdpNeighbors = controller.GetCDPNeighbors();
+            var routes = controller.GetIPRoute();
+            RouteView.Items.Clear();
+            foreach(var item in routes.Routes)
+            {
+                var newItem = new ListViewItem(new string[]
+                {
+                    item.Code.Protocol.ToString(),
+                    item.Code.Suffix == CiscoSession.Model.ERoutingProtocol.Unspecified ? "" : item.Code.Suffix.ToString(),
+                    item.Code.Candidate ? "*" : "",
+                    item.Code.NextHopOverride ? "*" : "",
+                    item.Code.Replicated ? "*" : "",
+                    item.Prefix.ToString(),
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                });
+
+                foreach(var nextHop in item.NextHops)
+                {
+                    if(newItem.SubItems[6].Text != "")
+                    {
+                        for (var i = 6; i < newItem.SubItems.Count; i++)
+                            newItem.SubItems[i].Text += "\n";
+                    }
+                    newItem.SubItems[6].Text += nextHop.RouteMetric.AdministrativeDistance;
+                    newItem.SubItems[7].Text += nextHop.RouteMetric.Metric;
+                    newItem.SubItems[8].Text += nextHop.Via == System.Net.IPAddress.Any ? "Directly connected" : nextHop.Via.ToString();
+                    if(nextHop.Uptime.Ticks > 0)
+                        newItem.SubItems[9].Text += nextHop.Uptime.ToString();
+                    newItem.SubItems[10].Text += nextHop.OutgoingInterface == null ? "" : nextHop.OutgoingInterface.ToString();
+                }
+
+                RouteView.Items.Add(newItem);
+            }
+
             var vlans = controller.GetVLANS();
         }
 

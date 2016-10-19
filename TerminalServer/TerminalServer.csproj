@@ -61,12 +61,12 @@
     <Compile Include="CiscoSession\Model\ShowCDPEntryItem.cs" />
     <Compile Include="CiscoSession\Model\ShowInterfaceBriefItem.cs" />
     <Compile Include="CiscoSession\Model\ShowInventoryItem.cs" />
-    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowCDPEntry.peg" />
-    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowVLANBrief.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowCDPEntry.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowVLANBrief.peg" />
     <Compile Include="CiscoSession\Model\ShowIPRouteEntry.cs" />
     <Compile Include="CiscoSession\Model\ShowVLANBriefItem.cs" />
-    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowIpRoute.peg" />
-    <Compile Include="CiscoSession\Parsers\ShowInventory\CiscoShowIPRouteMembers.cs" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowIpRoute.peg" />
+    <Compile Include="CiscoSession\Parsers\CiscoShowIPRouteMembers.cs" />
     <Compile Include="CiscoSession\ShowResultEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -88,8 +88,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowInventory.peg" />
-    <PegGrammar Include="CiscoSession\Parsers\ShowInventory\CiscoShowIpInterfaceBrief.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowInventory.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowIpInterfaceBrief.peg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

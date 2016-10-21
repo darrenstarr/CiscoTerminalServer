@@ -18,12 +18,6 @@ namespace TerminalServer.CiscoSession.Model
         Port
     }
 
-    public enum EDuplex
-    {
-        Half,
-        Full
-    }
-
     public abstract class CDPExtra
     {
     }

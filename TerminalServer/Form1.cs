@@ -88,6 +88,7 @@ namespace TerminalServer
 
             var vlans = controller.GetVLANS();
             var interfaces = controller.GetInterfaces();
+            return;
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)

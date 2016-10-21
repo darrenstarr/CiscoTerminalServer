@@ -143,7 +143,7 @@ namespace TerminalServer.CiscoSession
             return text;
         }
 
-        public List<ShowInterfaceBriefItem> GetIPInterfaceBrief()
+        public List<ShowIpInterfaceBriefItem> GetIPInterfaceBrief()
         {
             var text = ExecuteSingleCommand("show ip interface brief");
             try
@@ -160,13 +160,13 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
-        public List<ShowInterfaceBriefItem> GetInterfaces()
+        public List<ShowInterfacesItem> GetInterfaces()
         {
             var text = ExecuteSingleCommand("show interfaces");
             try
             {
-                return null;
-
+                var parser = new Parsers.CiscoShowInterfaces();
+                return parser.Parse(text);
             }
             catch (Exception e)
             {
@@ -358,3 +358,4 @@ namespace TerminalServer.CiscoSession
         }
     }
 }
+

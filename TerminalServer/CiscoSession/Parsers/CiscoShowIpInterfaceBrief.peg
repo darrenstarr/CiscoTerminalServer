@@ -3,8 +3,8 @@
 @using TerminalServer.CiscoSession.Model
 @using System.Net;
 
-Interfaces<List<ShowInterfaceBriefItem>>
-	= CLICommand TableHeader e:Entry* ciscoPrompt EOF { new List<ShowInterfaceBriefItem>(e) }
+Interfaces<List<ShowIpInterfaceBriefItem>>
+	= CLICommand TableHeader e:Entry* ciscoPrompt EOF { new List<ShowIpInterfaceBriefItem>(e) }
 	 	 
 CLICommand
 	= Line* 'show ip interface brief'
@@ -15,9 +15,9 @@ Line
 TableHeader
 	= WS 'Interface' WS 'IP-Address' WS 'OK?' WS 'Method' WS 'Status' WS 'Protocol' WS
 	
-Entry<ShowInterfaceBriefItem>
+Entry<ShowIpInterfaceBriefItem>
 	= id:Interface WS ip:IPAddressField WS ok:OKState WS meth:Method WS stat:Status WS prot:Protocol WS {
-		new ShowInterfaceBriefItem {
+		new ShowIpInterfaceBriefItem {
 			InterfaceId = id,
 			Address = ip,
 			Ok = ok,

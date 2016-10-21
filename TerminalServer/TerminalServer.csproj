@@ -58,15 +58,45 @@
     <Compile Include="CiscoSession\DeviceJob.cs" />
     <Compile Include="CiscoSession\DeviceJobList.cs" />
     <Compile Include="CiscoSession\DeviceJobTask.cs" />
+    <Compile Include="CiscoSession\Model\BasicRateInterfaceHardware.cs" />
+    <Compile Include="CiscoSession\Model\CiscoInterfaceId.cs" />
+    <Compile Include="CiscoSession\Model\CiscoInterfaceNumber.cs" />
+    <Compile Include="CiscoSession\Model\EAddressAssignmentMethod.cs" />
+    <Compile Include="CiscoSession\Model\EDuplex.cs" />
+    <Compile Include="CiscoSession\Model\EEthernetChipType.cs" />
+    <Compile Include="CiscoSession\Model\EEthernetLinkType.cs" />
+    <Compile Include="CiscoSession\Model\EEthernetMediaType.cs" />
+    <Compile Include="CiscoSession\Model\EEthernetRateSetting.cs" />
+    <Compile Include="CiscoSession\Model\EInterfaceKeepalive.cs" />
+    <Compile Include="CiscoSession\Model\EInterfaceStatus.cs" />
+    <Compile Include="CiscoSession\Model\EInterfaceType.cs" />
+    <Compile Include="CiscoSession\Model\ELinkControlProtocolState.cs" />
+    <Compile Include="CiscoSession\Model\ELoopbackSetting.cs" />
+    <Compile Include="CiscoSession\Model\EMultilinkState.cs" />
+    <Compile Include="CiscoSession\Model\ERoutingProtocol.cs" />
+    <Compile Include="CiscoSession\Model\EthernetInterfaceHardware.cs" />
+    <Compile Include="CiscoSession\Model\EthernetProtocolProperties.cs" />
+    <Compile Include="CiscoSession\Model\EthernetSpeed.cs" />
+    <Compile Include="CiscoSession\Model\InterfaceHardware.cs" />
+    <Compile Include="CiscoSession\Model\ELayer2Encapsulation.cs" />
+    <Compile Include="CiscoSession\Model\InterfaceKeepaliveSettings.cs" />
+    <Compile Include="CiscoSession\Model\InterfaceMetrics.cs" />
+    <Compile Include="CiscoSession\Model\Layer2ProtocolProperties.cs" />
+    <Compile Include="CiscoSession\Model\LoopbackInterfaceHardware.cs" />
+    <Compile Include="CiscoSession\Model\NetworkPrefix.cs" />
+    <Compile Include="CiscoSession\Model\PPPProtocolProperties.cs" />
     <Compile Include="CiscoSession\Model\ShowCDPEntryItem.cs" />
-    <Compile Include="CiscoSession\Model\ShowInterfaceBriefItem.cs" />
+    <Compile Include="CiscoSession\Model\ShowIpInterfaceBriefItem.cs" />
     <Compile Include="CiscoSession\Model\ShowInventoryItem.cs" />
     <PegGrammar Include="CiscoSession\Parsers\CiscoShowCDPEntry.peg" />
     <PegGrammar Include="CiscoSession\Parsers\CiscoShowVLANBrief.peg" />
     <Compile Include="CiscoSession\Model\ShowIPRouteEntry.cs" />
     <Compile Include="CiscoSession\Model\ShowVLANBriefItem.cs" />
     <PegGrammar Include="CiscoSession\Parsers\CiscoShowIpRoute.peg" />
+    <PegGrammar Include="CiscoSession\Parsers\CiscoShowInterfaces.peg" />
+    <Compile Include="CiscoSession\Parsers\CiscoShowInterfacesMembers.cs" />
     <Compile Include="CiscoSession\Parsers\CiscoShowIPRouteMembers.cs" />
+    <Compile Include="CiscoSession\ShowInterfacesItem.cs" />
     <Compile Include="CiscoSession\ShowResultEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -90,6 +120,7 @@
     </Compile>
     <PegGrammar Include="CiscoSession\Parsers\CiscoShowInventory.peg" />
     <PegGrammar Include="CiscoSession\Parsers\CiscoShowIpInterfaceBrief.peg" />
+    <None Include="CiscoSession\Parsers\RawParsers\CiscoShowInterfaces.peg" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

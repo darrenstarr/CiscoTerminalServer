@@ -7,67 +7,9 @@ using System.Threading.Tasks;
 
 namespace TerminalServer.CiscoSession.Model
 {
-    public enum ERoutingProtocol
-    {
-        Unspecified,
-        Local,
-        Connected,
-        Static,
-        RIP,
-        Mobile,
-        BGP,
-        EIGRP,
-        OSPF,
-        ISIS,
-        ODR,
-        PeriodicDownloadStatic,
-        NHRP,
-        LISP,
-        PerUserStatic,
-        EIGRPExternal,
-        OSPFInterarea,
-        OSPFNSSAType1External,
-        OSPFNSSAType2External,
-        OSPFType1External,
-        OSPFType2External,
-        ISISSummary,
-        ISISLevel1,
-        ISISLevel2,
-        ISISInterarea
-    }
+    
 
-    public class NetworkPrefix
-    {
-        public IPAddress NetworkAddress { get; set; }
-        public int Length { get; set; }
-
-        public static int ClassfulPrefixLength(IPAddress address)
-        {
-            var bytes = address.GetAddressBytes();
-            if ((bytes[0] & 0x80) == 0)
-                return 8;
-            if ((bytes[0] & 0x40) == 0)
-                return 16;
-            if ((bytes[0] & 0x20) == 0)
-                return 24;
-            throw new Exception("Not a valid classful address");
-        }
-
-        public override string ToString()
-        {
-            return NetworkAddress.ToString() + "/" + Length.ToString();
-        }
-
-        public static NetworkPrefix FromClassful(IPAddress networkAddress)
-        {
-            return new NetworkPrefix
-            {
-                NetworkAddress = networkAddress,
-                Length = ClassfulPrefixLength(networkAddress)
-            };
-        }
-    }
-
+    
     public class ShowIPRouteLastResort
     {
         public IPAddress Gateway { get; set; }

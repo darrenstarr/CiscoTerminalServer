@@ -14,11 +14,11 @@ I have included pretty complete parsers for :
  - show ip interface brief
  - show vlan brief
  - show ip route
+ - show interface
  
 My near-term todo includes
  - show vrf
  - show int status
- - show interface
  - show ip interface
  - show ipv6 interface brief
  - show ipv6 interface
@@ -65,3 +65,6 @@ I'm making extensive use of Renci.SshNet (also known as SSH.net) for communicati
 
 More notes :
 'show ip route' is implemented but really really needs a lot of test data. I would like to support all 'show ip route' formats for all IOS versions going back to early in the 12.x series or even 11.x for good luck. I would appreciate help building a directory of test data for all versions of the file for the unit tests. I would also like some complex tables, that means bgp routing tables, DMVPN with NHRP, route replication, etc... Please shoot me as many different tables as you can. You can obsure the public IP addresses if you'd like.
+
+Even more notes :
+ 'show interfaces' has been implemented true to the word. I have chosed to make it fail when it encounters unknown conditions as opposed to pushing past them since I believe it's extremely important to get full support for this show command. As of now, it seems to handle my 3750X, 3850, 2911, an old 803 with IOS 12.2 and BRI. However there is still very much to do. I will have to build a unit test framework very soon to work on this in more detail.

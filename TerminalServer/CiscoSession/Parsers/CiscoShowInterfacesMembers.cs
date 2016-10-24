@@ -28,10 +28,10 @@ namespace TerminalServer.CiscoSession.Parsers
             return result;
         }
 
-        DateTime CiscoTimeToDateTime(IList<int> seconds)
+        TimeSpan CiscoTimePartsToTimeSpan(IList<int> seconds)
         {
             int total = seconds.Sum();
-            return DateTime.Now.AddSeconds(-(total));
+            return TimeSpan.FromSeconds(total);
         }
 
         int CiscoTimeToSeconds(int x, string units)

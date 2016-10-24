@@ -20,6 +20,10 @@ namespace TerminalServer.CiscoSession.Model
         public ELoopbackSetting LoopbackSetting { get; set; }
         public InterfaceKeepaliveSettings Keepalive { get; set; }
         public Layer2ProtocolProperties ProtocolProperties { get; set; }
+        public EFlowControlType InputFlowControl { get; set; }
+        public EFlowControlType OutputFlowControl { get; set; }
         public List<CiscoInterfaceId> PortChannelMembers { get; set; }
+        public ARPStatistics ARPStats { get; set; }
+        public InterfaceStatistics Statistics { get; set; }
     }
 }

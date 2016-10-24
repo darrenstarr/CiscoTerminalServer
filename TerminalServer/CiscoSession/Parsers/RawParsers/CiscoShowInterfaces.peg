@@ -21,7 +21,8 @@ Interface
    Keepalive?
    EthernetCommunicationProperties?
    PPPCommunicationProperties?
-   FlowControl?
+   InputFlowControl?
+   OutputFlowControl?
    PortChannelMembers?
    ARPStatistics?
    Timers?
@@ -154,7 +155,7 @@ KeepaliveIs
   / 'set' WS? '(' Number WS? 'sec)'
   
 EthernetCommunicationProperties
-  = EthernetDuplex Comma WS? EthernetSpeed Comma WS? EthernetLinkType WS? EthernetMediaType WS?
+  = EthernetDuplex Comma WS? EthernetSpeed Comma WS? EthernetLinkType? WS? EthernetMediaType WS?
   
 EthernetDuplex
   = 'Half-duplex'
@@ -198,9 +199,6 @@ Multilink
 MultilinkState
   = 'Closed'
   
-FlowControl
-  = InputFlowControl OutputFlowControl
- 
 InputFlowControl
   = 'input flow-control is' WS? FlowControlType Comma? WS? 
  
@@ -314,7 +312,9 @@ PacketRate
     
 InputStatistics
   = PacketsInput?
+    PacketsInputNoBuffer?
     BroadcastsInput?
+	MulticastsInput?
     Runts?
     Giants?
     Throttles?
@@ -329,53 +329,60 @@ InputStatistics
     PauseInput?
     InputDribbleCondition?
 
-PacketsInput
-  = Number WS? 'packets input' Comma WS? Number WS? 'bytes' (Comma WS? Number WS? 'no buffer')? WS?
+PacketsInput<Int64>
+  = Number WS? 'packets input' Comma WS? i:BigNumber WS? 'bytes' Comma? WS? { i }
 
-BroadcastsInput
-  = 'Received' WS? Number WS? 'broadcasts' WS? ('(' Number WS? ('IP' WS)? 'multicasts)' WS?)? Comma? WS?
+PacketsInputNoBuffer<Int64>
+  = i:BigNumber WS? 'no buffer' WS? { i }
 
-Runts
-  = Number WS? 'runts' Comma? WS?
+BroadcastsInput<Int64>
+  = 'Received' WS? i:BigNumber WS? 'broadcasts' Comma? WS?  { i }
+  
+MulticastsInput<Int64>
+  = '(' i:BigNumber WS? ('IP' WS)? 'multicasts)' WS? Comma? WS? { i }
 
-Giants
-  = Number WS? 'giants' Comma? WS?
+Runts<Int64>
+  = i:BigNumber WS? 'runts' Comma? WS? { i }
 
-Throttles
-  = Number WS? 'throttles' Comma? WS?
+Giants<Int64>
+  = i:BigNumber WS? 'giants' Comma? WS? { i }
 
-InputErrors
-  = Number WS? 'input errors' Comma? WS?
+Throttles<Int64>
+  = i:BigNumber WS? 'throttles' Comma? WS? { i }
 
-InputCRC
-  = Number WS? 'CRC' Comma? WS?
+InputErrors<Int64>
+  = i:BigNumber WS? 'input errors' Comma? WS? { i }
 
-InputFrame
-  = Number WS? 'frame' Comma? WS?
+InputCRC<Int64>
+  = i:BigNumber WS? 'CRC' Comma? WS? { i }
 
-InputOverrun
-  = Number WS? 'overrun' Comma? WS?
+InputFrame<Int64>
+  = i:BigNumber WS? 'frame' Comma? WS? { i }
 
-InputIgnored
-  = Number WS? 'ignored' Comma? WS?
+InputOverrun<Int64>
+  = i:BigNumber WS? 'overrun' Comma? WS? { i }
 
-InputAbort
-  = Number WS? 'abort' Comma? WS?
+InputIgnored<Int64>
+  = i:BigNumber WS? 'ignored' Comma? WS? { i }
 
-WatchDog
-  = Number WS? 'watchdog' Comma? WS?
+InputAbort<Int64>
+  = i:BigNumber WS? 'abort' Comma? WS? { i }
 
-InputMulticast
-  = Number WS? 'multicast' Comma? WS?
+WatchDog<Int64>
+  = i:BigNumber WS? 'watchdog' Comma? WS? { i }
 
-PauseInput
-  = Number WS? 'pause input' Comma? WS?
+InputMulticast<Int64>
+  = i:BigNumber WS? 'multicast' Comma? WS? { i }
 
-InputDribbleCondition
-  = Number WS? 'input packets with dribble condition detected' WS?
+PauseInput<Int64>
+  = i:BigNumber WS? 'pause input' Comma? WS? { i }
+
+InputDribbleCondition<Int64>
+  = i:BigNumber WS? 'input packets with dribble condition detected' WS? { i }
 
 OutputStatistics
   = PacketsOutput?
+	PacketsOutputBytes?
     Underruns?
     OutputErrors?
     Collisions?
@@ -391,50 +398,53 @@ OutputStatistics
     OutputBuffersSwappedOut?
     CarrierTransitions?
 
-PacketsOutput
-  = Number WS? 'packets output' Comma WS? Number WS? 'bytes' Comma? WS?
+PacketsOutput<Int64>
+  = i:BigNumber WS? 'packets output' Comma? WS? {i} 
+  
+ PacketsOutputBytes<Int64>
+  = i:BigNumber WS? 'bytes' Comma? WS? { i }
    
-Underruns
-  = Number WS? 'underruns' Comma? WS?
+Underruns<Int64>
+  = i:BigNumber WS? 'underruns' Comma? WS? { i }
 
-OutputErrors
-  = Number WS? 'output errors' Comma? WS?
+OutputErrors<Int64>
+  = i:BigNumber WS? 'output errors' Comma? WS? { i }
   
-Collisions
-  = Number WS? 'collisions' Comma? WS?
+Collisions<Int64>
+  = i:BigNumber WS? 'collisions' Comma? WS? { i }
 
-InterfaceResets
-  = Number WS? 'interface resets' Comma? WS?
+InterfaceResets<Int64>
+  = i:BigNumber WS? 'interface resets' Comma? WS? { i }
  
-UnknownProtocolDrops
-  = Number WS? 'unknown protocol drops' Comma? WS?
+UnknownProtocolDrops<Int64>
+  = i:BigNumber WS? 'unknown protocol drops' Comma? WS? { i }
 
-Babbles
-  = Number WS? 'babbles' Comma? WS?
+Babbles<Int64>
+  = i:BigNumber WS? 'babbles' Comma? WS? { i }
 
-LateCollisions
-  = Number WS? 'late collision' Comma? WS?
+LateCollisions<Int64>
+  = i:BigNumber WS? 'late collision' Comma? WS? { i }
 
-Deferred
-  = Number WS? 'deferred' Comma? WS?
+Deferred<Int64>
+  = i:BigNumber WS? 'deferred' Comma? WS? { i }
 
-LostCarrier
-  = Number WS? 'lost carrier' Comma? WS?
+LostCarrier<Int64>
+  = i:BigNumber WS? 'lost carrier' Comma? WS? { i }
 
-NoCarrier
-  = Number WS? 'no carrier' Comma? WS?
+NoCarrier<Int64>
+  = i:BigNumber WS? 'no carrier' Comma? WS? { i }
   
-PauseOutput
-  = Number WS? 'pause output' Comma? WS?
+PauseOutput<Int64>
+  = i:BigNumber WS? 'pause output' Comma? WS? { i }
 
-OutputBufferFailures
-  = Number WS? 'output buffer failures' Comma? WS?
+OutputBufferFailures<Int64>
+  = i:BigNumber WS? 'output buffer failures' Comma? WS? { i }
 
-OutputBuffersSwappedOut
-  = Number WS? 'output buffers swapped out' Comma? WS?
+OutputBuffersSwappedOut<Int64>
+  = i:BigNumber WS? 'output buffers swapped out' Comma? WS? { i }
   
-CarrierTransitions
-  = Number WS? 'carrier transitions' Comma? WS?
+CarrierTransitions<Int64>
+  = i:BigNumber WS? 'carrier transitions' Comma? WS? { i }
 
 ///////// Common bits
   
@@ -474,6 +484,9 @@ WS
 Number
   = i:[0-9]+ { string.Concat(i) }
  
+BigNumber<Int64>
+  = i:[0-9]+ { Convert.ToInt64(string.Concat(i)) }
+
 Comma
   = ','
 

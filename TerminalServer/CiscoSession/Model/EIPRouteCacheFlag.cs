@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace TerminalServer.CiscoSession.Model
 {
-    public enum EAddressAssignmentMethod
+    public enum EIPRouteCacheFlag
     {
-        NVRAM,
-        DHCP,
-        Unset,
-        Manual,
-        SetupCommand
+        FastSwitching,
+        CEF
     }
 }

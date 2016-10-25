@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace TerminalServer.CiscoSession.Model
 {
-    public enum EAddressAssignmentMethod
+    public enum EInterfaceIPInputFeature
     {
-        NVRAM,
-        DHCP,
-        Unset,
-        Manual,
-        SetupCommand
+        MCICheck,
+        CommonFlowTable,
+        StatefulInspection
     }
 }

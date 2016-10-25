@@ -176,6 +176,22 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
+        public List<ShowIPInterfaceItem> ShowIPInterfaces()
+        {
+            var text = ExecuteSingleCommand("show ip interface");
+            try
+            {
+                var parser = new Parsers.CiscoShowIPInterface();
+                return parser.Parse(text);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
+        }
+
         public List<ShowVLANBriefItem> GetVLANS()
         {
             var text = ExecuteSingleCommand("show vlan brief");

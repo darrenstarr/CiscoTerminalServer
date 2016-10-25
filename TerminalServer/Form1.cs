@@ -87,7 +87,8 @@ namespace TerminalServer
             }
 
             var vlans = controller.GetVLANS();
-            var interfaces = controller.GetInterfaces();
+            //var interfaces = controller.GetInterfaces();
+            var ipInterfaces = controller.ShowIPInterfaces();
             return;
         }
 

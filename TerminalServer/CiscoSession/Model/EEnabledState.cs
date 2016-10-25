@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace TerminalServer.CiscoSession.Model
 {
-    public enum EAddressAssignmentMethod
+    public enum EEnabledState
     {
-        NVRAM,
-        DHCP,
-        Unset,
-        Manual,
-        SetupCommand
+        Unknown,
+        NotPresent,
+        Enabled,
+        Disabled
     }
 }

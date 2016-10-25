@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace TerminalServer.CiscoSession.Model
 {
-    public enum EAddressAssignmentMethod
+    public class IPAddressUnnumbered
     {
-        NVRAM,
-        DHCP,
-        Unset,
-        Manual,
-        SetupCommand
+        public System.Net.IPAddress Address { get; set; }
+        public CiscoInterfaceId Interface { get; set; }
     }
 }

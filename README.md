@@ -15,11 +15,11 @@ I have included pretty complete parsers for :
  - show vlan brief
  - show ip route
  - show interface
+ - show ip interface
  
 My near-term todo includes
  - show vrf
  - show int status
- - show ip interface
  - show ipv6 interface brief
  - show ipv6 interface
  - show ipv6 route

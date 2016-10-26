@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DAD280B5-A951-4393-8801-54876FB1EDDA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CiscoCLIParsers</RootNamespace>
+    <AssemblyName>CiscoCLIParsers</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Pegasus.Common, Version=3.1.2.0, Culture=neutral, PublicKeyToken=28c69b6c6d100f4a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pegasus.3.1.2\lib\net40\Pegasus.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\ARPStatistics.cs" />
+    <Compile Include="Model\BasicRateInterfaceHardware.cs" />
+    <Compile Include="Model\CiscoInterfaceId.cs" />
+    <Compile Include="Model\CiscoInterfaceNumber.cs" />
+    <Compile Include="Model\EAddressAssignmentMethod.cs" />
+    <Compile Include="Model\EARPType.cs" />
+    <Compile Include="Model\EDuplex.cs" />
+    <Compile Include="Model\EEnabledState.cs" />
+    <Compile Include="Model\EEthernetChipType.cs" />
+    <Compile Include="Model\EEthernetLinkType.cs" />
+    <Compile Include="Model\EEthernetMediaType.cs" />
+    <Compile Include="Model\EEthernetRateSetting.cs" />
+    <Compile Include="Model\EFlowControlType.cs" />
+    <Compile Include="Model\EInterfaceIPInputFeature.cs" />
+    <Compile Include="Model\EInterfaceIPOutputFeature.cs" />
+    <Compile Include="Model\EInterfaceKeepalive.cs" />
+    <Compile Include="Model\EInterfaceStatus.cs" />
+    <Compile Include="Model\EInterfaceType.cs" />
+    <Compile Include="Model\EIPRouteCacheFlag.cs" />
+    <Compile Include="Model\EIPSecurityLevelSetting.cs" />
+    <Compile Include="Model\ELayer2Encapsulation.cs" />
+    <Compile Include="Model\ELinkControlProtocolState.cs" />
+    <Compile Include="Model\ELoopbackSetting.cs" />
+    <Compile Include="Model\EMultilinkState.cs" />
+    <Compile Include="Model\EQueueingStrategyType.cs" />
+    <Compile Include="Model\ERoutingProtocol.cs" />
+    <Compile Include="Model\ESentWhen.cs" />
+    <Compile Include="Model\EthernetInterfaceHardware.cs" />
+    <Compile Include="Model\EthernetProtocolProperties.cs" />
+    <Compile Include="Model\EthernetSpeed.cs" />
+    <Compile Include="Model\InterfaceDataRate.cs" />
+    <Compile Include="Model\InterfaceHardware.cs" />
+    <Compile Include="Model\InterfaceInputQueueCharacteristics.cs" />
+    <Compile Include="Model\InterfaceInputStatistics.cs" />
+    <Compile Include="Model\InterfaceKeepaliveSettings.cs" />
+    <Compile Include="Model\InterfaceMetrics.cs" />
+    <Compile Include="Model\InterfaceOutputQueueCharacteristics.cs" />
+    <Compile Include="Model\InterfaceOutputQueueConversations.cs" />
+    <Compile Include="Model\InterfaceOutputQueueReservedConversations.cs" />
+    <Compile Include="Model\InterfaceOutputStatistics.cs" />
+    <Compile Include="Model\InterfaceQueueCharacteristics.cs" />
+    <Compile Include="Model\InterfaceQueueCounters.cs" />
+    <Compile Include="Model\InterfaceStatistics.cs" />
+    <Compile Include="Model\InterfaceTimers.cs" />
+    <Compile Include="Model\IPAddressUnnumbered.cs" />
+    <Compile Include="Model\Layer2ProtocolProperties.cs" />
+    <Compile Include="Model\LoopbackInterfaceHardware.cs" />
+    <Compile Include="Model\NetworkPrefix.cs" />
+    <Compile Include="Model\PPPProtocolProperties.cs" />
+    <Compile Include="Model\ShowCDPEntryItem.cs" />
+    <Compile Include="Model\ShowInterfacesItem.cs" />
+    <Compile Include="Model\ShowInventoryItem.cs" />
+    <Compile Include="Model\ShowIpInterfaceBriefItem.cs" />
+    <Compile Include="Model\ShowIPInterfaceItem.cs" />
+    <Compile Include="Model\ShowIPRouteEntry.cs" />
+    <Compile Include="Model\ShowVLANBriefItem.cs" />
+    <Compile Include="Parsers\CiscoShowInterfacesMembers.cs" />
+    <Compile Include="Parsers\CiscoShowIPInterfaceMembers.cs" />
+    <Compile Include="Parsers\CiscoShowIPRouteMembers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowCDPEntry.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowInterfaces.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowInventory.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowIPInterface.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowIpInterfaceBrief.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowIpRoute.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowVLANBrief.peg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Parsers\RawParsers\CiscoShowInterfaces.peg" />
+    <None Include="Parsers\RawParsers\CiscoShowIPInterfaces.peg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Pegasus.3.1.2\build\Pegasus.targets" Condition="Exists('..\packages\Pegasus.3.1.2\build\Pegasus.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Pegasus.3.1.2\build\Pegasus.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Pegasus.3.1.2\build\Pegasus.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

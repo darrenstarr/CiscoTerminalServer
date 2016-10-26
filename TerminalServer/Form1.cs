@@ -20,7 +20,7 @@ namespace TerminalServer
         {
             hostname.Text = "Hostname : " + controller.GetHostname();
 
-            var ipInterfacesBrief = controller.GetIPInterfaceBrief();
+            var ipInterfacesBrief = controller.ShowIPInterfacesBrief();
             interfacesView.Items.Clear();
             foreach(var item in ipInterfacesBrief)
             {
@@ -37,7 +37,7 @@ namespace TerminalServer
                 interfacesView.Items.Add(newItem);
             }
 
-            var inventory = controller.GetInventory();
+            var inventory = controller.ShowInventory();
             InventoryView.Items.Clear();
             foreach(var item in inventory)
             {
@@ -45,8 +45,8 @@ namespace TerminalServer
                 InventoryView.Items.Add(newItem);
             }
 
-            var cdpNeighbors = controller.GetCDPNeighbors();
-            var routes = controller.GetIPRoute();
+            var cdpNeighbors = controller.ShowCDPNeighbors();
+            var routes = controller.ShowIPRoute();
             RouteView.Items.Clear();
             if (routes != null)
             {
@@ -55,7 +55,7 @@ namespace TerminalServer
                     var newItem = new ListViewItem(new string[]
                     {
                         item.Code.Protocol.ToString(),
-                        item.Code.Suffix == CiscoSession.Model.ERoutingProtocol.Unspecified ? "" : item.Code.Suffix.ToString(),
+                        item.Code.Suffix == CiscoCLIParsers.Model.ERoutingProtocol.Unspecified ? "" : item.Code.Suffix.ToString(),
                         item.Code.Candidate ? "*" : "",
                         item.Code.NextHopOverride ? "*" : "",
                         item.Code.Replicated ? "*" : "",
@@ -88,7 +88,8 @@ namespace TerminalServer
 
             var vlans = controller.GetVLANS();
             //var interfaces = controller.GetInterfaces();
-            var ipInterfaces = controller.ShowIPInterfaces();
+            //var ipInterfaces = controller.ShowIPInterfaces();
+            var ipArp = controller.ShowIPARP();
             return;
         }
 

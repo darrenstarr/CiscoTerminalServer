@@ -1,0 +1,497 @@
+﻿@namespace CiscoCLIParsers.Parsers
+@classname CiscoShowInterfaces
+
+ShowInterfaces
+ = CLICommand Interface*  
+ 
+CLICommand
+ = 'show interfaces' WS? 
+ 
+Interface
+ = InterfaceID 
+   WS? 'is' WS?
+   LineStatus
+   ProtocolStatus
+   HardwareIs
+   Description?
+   InternetAddressIs?
+   Metrics?
+   Encapsulation?
+   LoopbackSetting?
+   Keepalive?
+   EthernetCommunicationProperties?
+   PPPCommunicationProperties?
+   InputFlowControl?
+   OutputFlowControl?
+   PortChannelMembers?
+   ARPStatistics?
+   Timers?
+   Queues?
+   InterfaceStatistics?
+ 
+InterfaceID
+  	= a:InterfaceType b:InterfaceNumber c:SubinterfaceNumber?
+
+InterfaceType
+  = 'Vlan'
+  / 'Ethernet'
+  / 'FastEthernet'
+  / 'GigabitEthernet'
+  / 'TenGigabitEthernet'
+  / 'Port-channel' 
+  / 'Loopback' 
+  / 'Tunnel' 
+  / 'Async' 
+  / 'NVI' 
+  / 'ucse' 
+  / 'Embedded-Service-Engine'
+  / 'BRI'
+  / 'Null' 
+
+InterfaceNumber
+  = a:Number '/' b:Number '/' c:Number '/' d:Number 
+  	/ a:Number '/' b:Number '/' c:Number
+  	/ a:Number [/:] b:Number 
+  	/ a:Number  
+  	
+SubinterfaceNumber
+  = '.' Number
+ 
+LineStatus
+  = InterfaceState Comma WS?
+  
+ProtocolStatus
+  = 'line protocol is' WS? InterfaceState WS?
+
+InterfaceState
+  	= 'up' (WS? '(connected)')?
+  	/ 'down' (WS? '(notconnect)')?
+  	/ 'administratively down'
+
+HardwareIs
+  = 'Hardware is' WS? HardwareType WS?
+  
+HardwareType
+  = 'Loopback'
+  / 'BRI with S/T interface and POTS'
+  / EthernetHardware
+  
+EthernetHardware
+  = EthernetChipType? EthernetHardwareType Comma WS? 'address is' WS? MACAddress (WS? BurnedInEthernetMac)? 
+ 
+EthernetChipType
+  = 'PowerPC405' WS? 
+  / 'PQUICC' WS?
+ 
+EthernetHardwareType    
+  = 'EtherSVI'
+  / 'Ethernet'
+  / 'Fast' WS? 'Ethernet'
+  / 'Gigabit Ethernet'
+  / 'Ten Gigabit Ethernet'
+  / 'EtherChannel'
+
+BurnedInEthernetMac
+ = '(bia' WS+ MACAddress ')'
+
+Description
+  = 'Description:' WS? [^\n\r]* WS?
+ 
+InternetAddressIs
+  = 'Internet address is' WS? Prefix
+  
+Prefix
+ = IPAddress '/' Number WS?
+
+Metrics
+  = MTU
+    Bandwidth
+    Delay
+    Reliability
+    TransmitLoad
+    ReceiveLoad
+    
+MTU
+  = 'MTU' WS? Number WS? 'bytes' Comma WS?
+
+Bandwidth
+  = 'BW' WS? Number WS? DataRate Comma WS?
+  
+Delay
+  = 'DLY' WS? Number WS? TimeUnit Comma WS?
+   
+TimeUnit
+  = 'usec' 
+ 
+Reliability
+  = 'reliability' WS? Number WS? '/' WS? Number Comma WS?
+   
+TransmitLoad
+  = 'txload' WS? Number WS? '/' WS? Number WS? Comma WS?
+ 
+ReceiveLoad
+  = 'rxload' WS? Number WS? '/' WS? Number WS?
+  
+Encapsulation
+  = 'Encapsulation' WS? EncapsulationType Comma? WS?
+
+EncapsulationType
+  = 'ARPA'
+  / 'LOOPBACK'
+  / 'PPP'
+  
+LoopbackSetting
+  = 'loopback' WS? LoopbackIs WS?
+  
+LoopbackIs
+  = 'not set'
+
+Keepalive
+  = 'Keepalive' WS? KeepaliveIs WS?
+  
+KeepaliveIs
+  = 'not supported'
+  / 'not set'
+  / 'set' WS? '(' Number WS? 'sec)'
+  
+EthernetCommunicationProperties
+  = EthernetDuplex Comma WS? EthernetSpeed Comma WS? EthernetLinkType? WS? EthernetMediaType WS?
+  
+EthernetDuplex
+  = 'Half-duplex'
+  / 'Full-duplex'
+  / 'Auto-duplex'
+  / 'Unknown duplex'
+  
+EthernetSpeed
+  = 'Unknown Speed'
+  / 'Auto-speed'
+  / Number DataRate
+  
+EthernetLinkType
+  = 'link type is' WS? LinkTypes Comma? WS?
+  
+LinkTypes
+  = 'auto'
+  
+EthernetMediaType
+  = 'MII'
+  / 'media type is' WS? EthernetPhysicalMediaType
+
+EthernetPhysicalMediaType
+  = '10/100/1000BaseTX'
+  / 'Not Present'
+  / 'SFP-10GBase-CX1'
+  / 'unknown'
+  
+PPPCommunicationProperties
+  = LCP Multilink?
+  
+LCP
+  = 'LCP' WS? LCPState Comma? WS?
+  
+LCPState
+  = 'Closed'
+  
+Multilink
+  = 'multilink' WS? MultilinkState Comma? WS?
+  
+MultilinkState
+  = 'Closed'
+  
+InputFlowControl
+  = 'input flow-control is' WS? FlowControlType Comma? WS? 
+ 
+OutputFlowControl
+  = 'output flow-control is' WS? FlowControlType Comma? WS?
+ 
+FlowControlType
+  = 'off'
+  / 'unsupported'
+  
+PortChannelMembers
+  = 'Members in this channel:' WS? InterfaceAbbreviations WS?
+  
+InterfaceAbbreviations
+  = InterfaceAbbreviation*
+  
+InterfaceAbbreviation
+ = a:InterfacePrefix b:InterfaceNumber WS?
+ / a:InterfacePrefix b:InterfaceNumber Comma WS 
+ 
+InterfacePrefix
+ = 'Et'
+ / 'Eth'
+ / 'Fa'
+ / 'Gi'
+ / 'Te'
+ 
+ARPStatistics
+ = 'ARP type:' WS? ARPType Comma WS?
+   'ARP Timeout' WS? TimeUgly WS
+
+ARPType
+  = 'ARPA'
+ 
+Timers
+ = LastInputTime
+   LastOutputTime
+   OutputHangTime
+   LastCounterClearing
+   
+LastInputTime
+ = 'Last input' WS? TimeUgly Comma? WS?
+
+LastOutputTime
+ = 'output' WS? TimeUgly Comma? WS?
+   
+OutputHangTime
+ = 'output hang' WS? TimeUgly? WS?
+ 
+LastCounterClearing
+  = 'Last clearing of "show interface" counters' WS? TimeUgly? WS?
+ 
+Queues
+  = InputQueueCharacterisitics OutputQueueCharacterisitics
+  
+InputQueueCharacterisitics
+  = InputQueue OutputDrops QueueingStrategy 
+  
+InputQueue
+  = 'Input queue:' WS? Number '/' Number '/' Number '/' Number WS? '(size/max/drops/flushes);' WS?
+    
+OutputDrops
+  = 'Total output drops:' WS? Number WS?
+  
+QueueingStrategy
+  = 'Queueing strategy:' WS? QueueingStrategyType WS?
+   
+QueueingStrategyType
+  = 'fifo'   
+  / 'weighted fair'
+  
+OutputQueueCharacterisitics
+   = OutputQueue
+     Conversations?
+     ReservedConversations?
+     AvailableBandwidth?
+     
+OutputQueue
+  = 'Output queue:' WS? Number '/' Number WS? '(size/max)' WS?
+  / 'Output queue:' WS? Number '/' Number '/' Number '/' Number WS? '(size/max total/threshold/drops)' WS? 
+
+Conversations
+  = 'Conversations' WS? Number '/' Number '/' Number WS? '(active/max active/max total)' WS?
+
+ReservedConversations
+  = 'Reserved Conversations' WS? Number '/' Number WS? '(allocated/max allocated)' WS?
+
+AvailableBandwidth
+  = 'Available Bandwidth' WS? Number WS? DataRate WS?
+
+InterfaceStatistics
+  =  TransferRates InputStatistics OutputStatistics
+
+TransferRates
+  = InputRate OutputRate
+  
+InputRate
+  = '5 minute input rate' WS? Number? WS? DataRate Comma WS? Number WS? PacketRate WS?
+
+OutputRate
+  = '5 minute output rate' WS? Number? WS? DataRate Comma WS? Number WS? PacketRate WS?
+  
+DataRate
+  = [Bb] 'it'? 's'? ('/s' 'ec'?)?
+  / [Kk] 'ilo'? [Bb] 'it'? 's'? ('/s' 'ec'?)?
+  / [Mm] 'ega'? [Bb] 'it'? 's'? ('/s' 'ec'?)?
+  / [Gg] 'iga'? [Bb] 'it'? 's'? ('/s' 'ec'?)?
+
+PacketRate
+  = 'packets/sec'
+    
+InputStatistics
+  = PacketsInput?
+    PacketsInputNoBuffer?
+    BroadcastsInput?
+	MulticastsInput?
+    Runts?
+    Giants?
+    Throttles?
+    InputErrors?
+    InputCRC?
+    InputFrame?
+    InputOverrun?
+    InputIgnored?
+    InputAbort?
+    WatchDog?
+    InputMulticast?
+    PauseInput?
+    InputDribbleCondition?
+
+PacketsInput<Int64>
+  = Number WS? 'packets input' Comma WS? i:BigNumber WS? 'bytes' Comma? WS? { i }
+
+PacketsInputNoBuffer<Int64>
+  = i:BigNumber WS? 'no buffer' WS? { i }
+
+BroadcastsInput<Int64>
+  = 'Received' WS? i:BigNumber WS? 'broadcasts' Comma? WS?  { i }
+  
+MulticastsInput<Int64>
+  = '(' i:BigNumber WS? ('IP' WS)? 'multicasts)' WS? Comma? WS? { i }
+
+Runts<Int64>
+  = i:BigNumber WS? 'runts' Comma? WS? { i }
+
+Giants<Int64>
+  = i:BigNumber WS? 'giants' Comma? WS? { i }
+
+Throttles<Int64>
+  = i:BigNumber WS? 'throttles' Comma? WS? { i }
+
+InputErrors<Int64>
+  = i:BigNumber WS? 'input errors' Comma? WS? { i }
+
+InputCRC<Int64>
+  = i:BigNumber WS? 'CRC' Comma? WS? { i }
+
+InputFrame<Int64>
+  = i:BigNumber WS? 'frame' Comma? WS? { i }
+
+InputOverrun<Int64>
+  = i:BigNumber WS? 'overrun' Comma? WS? { i }
+
+InputIgnored<Int64>
+  = i:BigNumber WS? 'ignored' Comma? WS? { i }
+
+InputAbort<Int64>
+  = i:BigNumber WS? 'abort' Comma? WS? { i }
+
+WatchDog<Int64>
+  = i:BigNumber WS? 'watchdog' Comma? WS? { i }
+
+InputMulticast<Int64>
+  = i:BigNumber WS? 'multicast' Comma? WS? { i }
+
+PauseInput<Int64>
+  = i:BigNumber WS? 'pause input' Comma? WS? { i }
+
+InputDribbleCondition<Int64>
+  = i:BigNumber WS? 'input packets with dribble condition detected' WS? { i }
+
+OutputStatistics
+  = PacketsOutput?
+	PacketsOutputBytes?
+    Underruns?
+    OutputErrors?
+    Collisions?
+    InterfaceResets?
+    UnknownProtocolDrops?
+    Babbles?
+    LateCollisions?
+    Deferred?
+    LostCarrier?
+    NoCarrier?
+    PauseOutput?
+    OutputBufferFailures?
+    OutputBuffersSwappedOut?
+    CarrierTransitions?
+
+PacketsOutput<Int64>
+  = i:BigNumber WS? 'packets output' Comma? WS? {i} 
+  
+ PacketsOutputBytes<Int64>
+  = i:BigNumber WS? 'bytes' Comma? WS? { i }
+   
+Underruns<Int64>
+  = i:BigNumber WS? 'underruns' Comma? WS? { i }
+
+OutputErrors<Int64>
+  = i:BigNumber WS? 'output errors' Comma? WS? { i }
+  
+Collisions<Int64>
+  = i:BigNumber WS? 'collisions' Comma? WS? { i }
+
+InterfaceResets<Int64>
+  = i:BigNumber WS? 'interface resets' Comma? WS? { i }
+ 
+UnknownProtocolDrops<Int64>
+  = i:BigNumber WS? 'unknown protocol drops' Comma? WS? { i }
+
+Babbles<Int64>
+  = i:BigNumber WS? 'babbles' Comma? WS? { i }
+
+LateCollisions<Int64>
+  = i:BigNumber WS? 'late collision' Comma? WS? { i }
+
+Deferred<Int64>
+  = i:BigNumber WS? 'deferred' Comma? WS? { i }
+
+LostCarrier<Int64>
+  = i:BigNumber WS? 'lost carrier' Comma? WS? { i }
+
+NoCarrier<Int64>
+  = i:BigNumber WS? 'no carrier' Comma? WS? { i }
+  
+PauseOutput<Int64>
+  = i:BigNumber WS? 'pause output' Comma? WS? { i }
+
+OutputBufferFailures<Int64>
+  = i:BigNumber WS? 'output buffer failures' Comma? WS? { i }
+
+OutputBuffersSwappedOut<Int64>
+  = i:BigNumber WS? 'output buffers swapped out' Comma? WS? { i }
+  
+CarrierTransitions<Int64>
+  = i:BigNumber WS? 'carrier transitions' Comma? WS? { i }
+
+///////// Common bits
+  
+IPAddress
+ = a:Octet '.' b:Octet '.' c:Octet '.' d:Octet 
+ 
+Octet
+ = '25' [0-5]
+ / '2' [0-4][0-9]
+ / [0-1][0-9][0-9]
+ / [0-9][0-9]?
+
+// TODO: Come up with a better name for this
+TimeUgly
+  = i:TimeUglyPart+ { string.Concat(i) }
+  / 'never'
+  / TimeHMS
+  
+TimeUglyPart
+  = Number [ywdhms]
+  
+TimeHMS
+  = Number ':' Number ':' Number
+              
+MACAddress
+  = Hextet '.' Hextet '.' Hextet
+  
+Hextet
+  = HexDigit HexDigit HexDigit HexDigit
+ 
+HexDigit
+  = [0-9A-Fa-f]
+ 
+WS
+  = [ \t\r\n]+
+
+Number
+  = i:[0-9]+ { string.Concat(i) }
+ 
+BigNumber<Int64>
+  = i:[0-9]+ { Convert.ToInt64(string.Concat(i)) }
+
+Comma
+  = ','
+
+CiscoPrompt
+  = [A-Za-z0-9-_]*[#>]
+
+EOF 
+  = !.

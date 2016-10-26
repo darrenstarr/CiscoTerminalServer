@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TerminalServer.CiscoSession.Model;
+using CiscoCLIParsers.Model;
+using CiscoCLIParsers.Parsers;
 
 namespace TerminalServer.CiscoSession
 {
@@ -143,12 +144,12 @@ namespace TerminalServer.CiscoSession
             return text;
         }
 
-        public List<ShowIpInterfaceBriefItem> GetIPInterfaceBrief()
+        public List<ShowIpInterfaceBriefItem> ShowIPInterfacesBrief()
         {
             var text = ExecuteSingleCommand("show ip interface brief");
             try
             {
-                var parser = new Parsers.CiscoShowIpInterfaceBrief();
+                var parser = new CiscoShowIpInterfaceBrief();
                 return parser.Parse(text);
 
             }
@@ -165,7 +166,23 @@ namespace TerminalServer.CiscoSession
             var text = ExecuteSingleCommand("show interfaces");
             try
             {
-                var parser = new Parsers.CiscoShowInterfaces();
+                var parser = new CiscoShowInterfaces();
+                return parser.Parse(text);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return null;
+        }
+
+        public List<ShowInterfacesItem> ShowIPARP()
+        {
+            var text = ExecuteSingleCommand("show ip arp");
+            try
+            {
+                var parser = new CiscoShowInterfaces();
                 return parser.Parse(text);
             }
             catch (Exception e)
@@ -181,7 +198,7 @@ namespace TerminalServer.CiscoSession
             var text = ExecuteSingleCommand("show ip interface");
             try
             {
-                var parser = new Parsers.CiscoShowIPInterface();
+                var parser = new CiscoShowIPInterface();
                 return parser.Parse(text);
             }
             catch (Exception e)
@@ -197,7 +214,7 @@ namespace TerminalServer.CiscoSession
             var text = ExecuteSingleCommand("show vlan brief");
             try
             {
-                var parser = new Parsers.CiscoShowVLANBrief();
+                var parser = new CiscoShowVLANBrief();
                 return parser.Parse(text);
 
             }
@@ -209,12 +226,12 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
-        public ShowIPRouteEntry GetIPRoute()
+        public ShowIPRouteEntry ShowIPRoute()
         {
             var text = ExecuteSingleCommand("show ip route");
             try
             {
-                var parser = new Parsers.CiscoShowIpRoute();
+                var parser = new CiscoShowIpRoute();
                 return parser.Parse(text);
 
             }
@@ -236,13 +253,13 @@ namespace TerminalServer.CiscoSession
             return m[0].Groups[1].Value;
         }
 
-        public List<ShowCDPEntryItem>GetCDPNeighbors()
+        public List<ShowCDPEntryItem>ShowCDPNeighbors()
         {
             var text = ExecuteSingleCommand("show cdp entry *");
 
             try
             {
-                var parser = new Parsers.CiscoShowCDPEntry();
+                var parser = new CiscoShowCDPEntry();
                 return parser.Parse(text);
             }
             catch (Exception e)
@@ -253,13 +270,13 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
-        public List<ShowInventoryItem> GetInventory()
+        public List<ShowInventoryItem> ShowInventory()
         {
             var text = ExecuteSingleCommand("show inventory");
 
             try
             {
-                var parser = new Parsers.CiscoShowInventory();
+                var parser = new CiscoShowInventory();
                 return parser.Parse(text);
 
             }

@@ -8,3 +8,5 @@
 *.peg.cs
 /SSH.NET/
 /SampleData
+/CiscoCLIParsers/bin/Debug
+/CiscoCLIParsers/obj/Debug

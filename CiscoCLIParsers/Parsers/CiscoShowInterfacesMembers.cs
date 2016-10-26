@@ -11,23 +11,6 @@ namespace CiscoCLIParsers.Parsers
 {
     partial class CiscoShowInterfaces
     {
-        CiscoInterfaceId ToCiscoInterfaceId(EInterfaceType interfaceType, CiscoInterfaceNumber interfaceNumber, IList<int>channelNumber, IList<int>subinterfaceNumber)
-        {
-            var result = new CiscoInterfaceId
-            {
-                InterfaceType = interfaceType,
-                InterfaceNumber = interfaceNumber
-            };
-
-            if (channelNumber.Count > 0)
-                result.InterfaceNumber.Channel = channelNumber[0];
-
-            if (subinterfaceNumber.Count > 0)
-                result.InterfaceNumber.Subinterface = subinterfaceNumber[0];
-
-            return result;
-        }
-
         TimeSpan CiscoTimePartsToTimeSpan(IList<int> seconds)
         {
             int total = seconds.Sum();

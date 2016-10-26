@@ -103,7 +103,7 @@ Interface<ShowIPInterfaceItem>
    }
 
 InterfaceID<CiscoInterfaceId>
-  	= a:InterfaceType b:InterfaceNumber c:ChannelNumber? d:SubinterfaceNumber? { ToCiscoInterfaceId(a, b, c, d) }
+  	= a:InterfaceType b:InterfaceNumber c:ChannelNumber? d:SubinterfaceNumber? { Common.Helpers.ToCiscoInterfaceId(a, b, c, d) }
 
 InterfaceType<EInterfaceType>
   = 'Vlan' { EInterfaceType.VLan }

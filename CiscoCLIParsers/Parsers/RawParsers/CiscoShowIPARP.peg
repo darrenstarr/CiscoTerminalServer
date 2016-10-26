@@ -1,0 +1,81 @@
+@namespace CiscoCLIParsers.Parsers
+@classname CiscoShowIPARP
+
+ShowIPARP 
+ = CLICommand Heading ARPEntry*
+ 
+CLICommand
+ = 'show ip arp' WS? 
+
+Heading
+ = 'Protocol' WS? 'Address' WS? 'Age (min)' WS? 'Hardware Addr' WS? 'Type' WS? 'Interface' WS?
+ 
+ARPEntry
+ = Protocol IPAddress Age MACAddress Type InterfaceID
+ 
+Protocol
+ = 'Internet' WS?
+ 
+IPAddress<System.Net.IPAddress>
+ = ip:(Octet '.' Octet '.' Octet '.' Octet) WS? { System.Net.IPAddress.Parse(ip) }
+ 
+Octet
+ = '25' [0-5]
+ / '2' [0-4][0-9]
+ / [0-1][0-9][0-9]
+ / [0-9][0-9]?
+ 
+Age<int>
+ = '-' WS? { -1 }
+ / n:Number WS? { n }
+
+MACAddress<System.Net.NetworkInformation.PhysicalAddress>
+  = i:(Hextet '.' Hextet '.' Hextet) WS? { 
+      System.Net.NetworkInformation.PhysicalAddress.Parse(i.Replace(".", "").ToUpper()) 
+    }
+  
+Hextet
+  = HexDigit HexDigit HexDigit HexDigit
+ 
+HexDigit
+  = [0-9A-Fa-f]
+
+Type
+  = 'ARPA' WS? 
+
+InterfaceID
+  	= a:InterfaceType b:InterfaceNumber c:ChannelNumber? d:SubinterfaceNumber? WS?
+
+InterfaceType
+  = 'Vlan' 
+  / 'Ethernet' 
+  / 'FastEthernet' 
+  / 'GigabitEthernet' 
+  / 'TenGigabitEthernet' 
+  / 'Port-channel' 
+  / 'Loopback' 
+  / 'Tunnel' 
+  / 'Async' 
+  / 'NVI' 
+  / 'ucse' 
+  / 'Embedded-Service-Engine' 
+  / 'BRI' 
+  / 'Null'
+
+InterfaceNumber
+	= a:Number '/' b:Number '/' c:Number '/' d:Number 
+	/ a:Number '/' b:Number '/' c:Number 
+	/ a:Number '/' b:Number 
+	/ a:Number WS?
+  	
+SubinterfaceNumber<int>
+  = '.' i:Number { i }
+
+ChannelNumber<int>
+  = ':' i:Number { i }
+
+WS
+  = [ \t\r\n]+
+
+Number<int>
+  = i:[0-9]+ { Convert.ToInt32(string.Concat(i)) }

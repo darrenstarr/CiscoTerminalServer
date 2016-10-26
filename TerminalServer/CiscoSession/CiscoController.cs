@@ -177,12 +177,12 @@ namespace TerminalServer.CiscoSession
             return null;
         }
 
-        public List<ShowInterfacesItem> ShowIPARP()
+        public List<ShowIPARPEntry> ShowIPARP()
         {
             var text = ExecuteSingleCommand("show ip arp");
             try
             {
-                var parser = new CiscoShowInterfaces();
+                var parser = new CiscoShowIPARP();
                 return parser.Parse(text);
             }
             catch (Exception e)

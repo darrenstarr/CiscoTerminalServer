@@ -68,6 +68,7 @@
     <Compile Include="Model\ELinkControlProtocolState.cs" />
     <Compile Include="Model\ELoopbackSetting.cs" />
     <Compile Include="Model\EMultilinkState.cs" />
+    <Compile Include="Model\EProtocolAddressFamily.cs" />
     <Compile Include="Model\EQueueingStrategyType.cs" />
     <Compile Include="Model\ERoutingProtocol.cs" />
     <Compile Include="Model\ESentWhen.cs" />
@@ -96,13 +97,14 @@
     <Compile Include="Model\ShowCDPEntryItem.cs" />
     <Compile Include="Model\ShowInterfacesItem.cs" />
     <Compile Include="Model\ShowInventoryItem.cs" />
+    <Compile Include="Model\ShowIPARPEntry.cs" />
     <Compile Include="Model\ShowIpInterfaceBriefItem.cs" />
     <Compile Include="Model\ShowIPInterfaceItem.cs" />
     <Compile Include="Model\ShowIPRouteEntry.cs" />
     <Compile Include="Model\ShowVLANBriefItem.cs" />
     <Compile Include="Parsers\CiscoShowInterfacesMembers.cs" />
-    <Compile Include="Parsers\CiscoShowIPInterfaceMembers.cs" />
     <Compile Include="Parsers\CiscoShowIPRouteMembers.cs" />
+    <Compile Include="Parsers\Common\Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +129,7 @@
     <PegGrammar Include="Parsers\CiscoShowVLANBrief.peg" />
   </ItemGroup>
   <ItemGroup>
+    <PegGrammar Include="Parsers\CiscoShowIPARP.peg" />
     <None Include="Parsers\RawParsers\CiscoShowInterfaces.peg" />
     <None Include="Parsers\RawParsers\CiscoShowIPInterfaces.peg" />
   </ItemGroup>

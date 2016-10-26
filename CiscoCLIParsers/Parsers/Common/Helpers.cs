@@ -1,15 +1,15 @@
-﻿using System;
+﻿using CiscoCLIParsers.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CiscoCLIParsers.Model;
 
-namespace CiscoCLIParsers.Parsers
+namespace CiscoCLIParsers.Parsers.Common
 {
-    public partial class CiscoShowIPInterface
-    {
-        CiscoInterfaceId ToCiscoInterfaceId(EInterfaceType interfaceType, CiscoInterfaceNumber interfaceNumber, IList<int> channelNumber, IList<int> subinterfaceNumber)
+    class Helpers
+    { 
+        public static CiscoInterfaceId ToCiscoInterfaceId(EInterfaceType interfaceType, CiscoInterfaceNumber interfaceNumber, IList<int> channelNumber, IList<int> subinterfaceNumber)
         {
             var result = new CiscoInterfaceId
             {

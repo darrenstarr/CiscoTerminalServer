@@ -16,6 +16,7 @@ I have included pretty complete parsers for :
  - show ip route
  - show interface
  - show ip interface
+ - show ip arp
  
 My near-term todo includes
  - show vrf
@@ -32,7 +33,6 @@ My near-term todo includes
  - show ip ospf database external
  - show ip ospf database nssa-external
  - show ip protocol
- - show ip arp
  - show ip device tracking all
  - show ip access-list
  - show ipv6 access-list

@@ -1,0 +1,19 @@
+@namespace CiscoCLIParsers.Parsers
+@classname CiscoShowInterfaceStatus
+
+ShowInterfaceStatus
+ = CLICommand Heading InterfaceStatus*
+ 
+CLICommand
+ = 'show interface status' WS? 
+
+Heading
+ = 'Port' WS? 'Name' WS? 'Status' WS ? 'Vlan' WS ? 'Duplex' WS ? 'Speed' WS ? 'Type' WS?
+
+InterfaceStatus
+ = InterfaceID 
+ 
+ 
+ 
+WS
+  = [ \t\r\n]+

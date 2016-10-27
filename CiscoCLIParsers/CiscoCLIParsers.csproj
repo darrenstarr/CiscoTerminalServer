@@ -50,6 +50,7 @@
     <Compile Include="Model\CiscoInterfaceNumber.cs" />
     <Compile Include="Model\EAddressAssignmentMethod.cs" />
     <Compile Include="Model\EARPType.cs" />
+    <Compile Include="Model\EConnectionState.cs" />
     <Compile Include="Model\EDuplex.cs" />
     <Compile Include="Model\EEnabledState.cs" />
     <Compile Include="Model\EEthernetChipType.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Model\ELinkControlProtocolState.cs" />
     <Compile Include="Model\ELoopbackSetting.cs" />
     <Compile Include="Model\EMultilinkState.cs" />
+    <Compile Include="Model\ESwitchportMode.cs" />
     <Compile Include="Model\EProtocolAddressFamily.cs" />
     <Compile Include="Model\EQueueingStrategyType.cs" />
     <Compile Include="Model\ERoutingProtocol.cs" />
@@ -93,9 +95,11 @@
     <Compile Include="Model\Layer2ProtocolProperties.cs" />
     <Compile Include="Model\LoopbackInterfaceHardware.cs" />
     <Compile Include="Model\NetworkPrefix.cs" />
+    <Compile Include="Model\PortVLAN.cs" />
     <Compile Include="Model\PPPProtocolProperties.cs" />
     <Compile Include="Model\ShowCDPEntryItem.cs" />
     <Compile Include="Model\ShowInterfacesItem.cs" />
+    <Compile Include="Model\ShowInterfaceStatusItem.cs" />
     <Compile Include="Model\ShowInventoryItem.cs" />
     <Compile Include="Model\ShowIPARPEntry.cs" />
     <Compile Include="Model\ShowIpInterfaceBriefItem.cs" />
@@ -130,7 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <PegGrammar Include="Parsers\CiscoShowIPARP.peg" />
+    <PegGrammar Include="Parsers\CiscoShowInterfaceStatus.peg" />
     <None Include="Parsers\RawParsers\CiscoShowInterfaces.peg" />
+    <None Include="Parsers\RawParsers\CiscoShowInterfaceStatus.peg" />
+    <None Include="Parsers\RawParsers\CiscoShowIPARP.peg" />
     <None Include="Parsers\RawParsers\CiscoShowIPInterfaces.peg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

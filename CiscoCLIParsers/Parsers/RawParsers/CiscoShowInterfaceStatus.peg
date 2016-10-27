@@ -1,0 +1,82 @@
+@namespace CiscoCLIParsers.Parsers
+@classname CiscoShowInterfaceStatus
+
+ShowInterfaceStatus
+ = CLICommand Heading InterfaceStatus*
+ 
+CLICommand
+ = 'show interface status' WS? 
+
+Heading
+ = 'Port' WS? 'Name' WS? 'Status' WS ? 'Vlan' WS ? 'Duplex' WS ? 'Speed' WS ? 'Type' WS?
+
+InterfaceStatus
+	 = InterfaceID Connected PortVLAN Auto? Duplex Auto? Speed EthernetPhysicalMediaType? WS?
+ / InterfaceID Name? Connected PortVLAN Auto? Duplex Auto? Speed EthernetPhysicalMediaType? WS?
+ 
+InterfaceID
+  	= a:InterfaceType b:InterfaceNumber c:ChannelNumber? d:SubinterfaceNumber? WS?
+
+InterfaceType
+  = 'Et' 'hernet'?
+  / 'Fa' 'stEthernet'? 
+  / 'Gi' 'gabitEthernet'?
+  / 'Te' 'nGigabitEthernet'?
+  / 'Po' 'rt-channel'? 
+  / 'Lo' 'opback'? 
+  / 'Tu' 'nnel'?
+
+InterfaceNumber
+	= a:Number '/' b:Number '/' c:Number '/' d:Number 
+	/ a:Number '/' b:Number '/' c:Number 
+	/ a:Number '/' b:Number 
+	/ a:Number WS?
+  	
+SubinterfaceNumber<int>
+  = '.' i:Number { i }
+
+ChannelNumber<int>
+  = ':' i:Number { i }
+
+Name 
+  = n:(..................) WS { n }
+  
+Connected
+ = 'connected' WS
+ / 'notconnect' WS
+ / 'disabled' WS
+  
+PortVLAN
+ = 'trunk' WS
+ / 'routed' WS
+ / 'unassigned' WS
+ / Number WS
+ 
+Auto
+ = 'a-'
+ 
+Duplex
+ = 'auto' WS
+ / 'full' WS
+ / 'half' WS
+  
+Speed<Int64>
+ = '10' WS { 10000000 }
+ / '100' WS { 100000000 }
+ / '1000' WS { 1000000000 }
+ / '10G' WS { 10000000000 }
+ / '40G' WS { 40000000000 }
+ / '100G' WS { 100000000000 }
+ / 'auto' WS { -1 }
+ 
+WS
+  = [ \t\r\n]+
+
+Number<int>
+  = i:[0-9]+ { Convert.ToInt32(string.Concat(i)) }
+
+EthernetPhysicalMediaType
+  = '10/100/1000BaseTX'
+  / 'Not Present'
+  / 'SFP-10GBase-CX1'
+  / 'unknown'

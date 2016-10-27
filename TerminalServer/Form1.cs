@@ -66,7 +66,7 @@ namespace TerminalServer
                         "",
                         ""
                     });
-
+                    
                     foreach (var nextHop in item.NextHops)
                     {
                         if (newItem.SubItems[6].Text != "")
@@ -89,7 +89,8 @@ namespace TerminalServer
             var vlans = controller.GetVLANS();
             //var interfaces = controller.GetInterfaces();
             //var ipInterfaces = controller.ShowIPInterfaces();
-            var ipArp = controller.ShowIPARP();
+            //var ipArp = controller.ShowIPARP();
+            var interfaceState = controller.ShowInterfaceStatus();
             return;
         }
 

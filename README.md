@@ -17,10 +17,10 @@ I have included pretty complete parsers for :
  - show interface
  - show ip interface
  - show ip arp
+ - show interface status
  
 My near-term todo includes
  - show vrf
- - show int status
  - show ipv6 interface brief
  - show ipv6 interface
  - show ipv6 route
